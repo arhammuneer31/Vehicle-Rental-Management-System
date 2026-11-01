@@ -1,5 +1,5 @@
 /*
- * VEHICLE RENTAL MANAGEMENT SYSTEM  (Week 2)
+ * VEHICLE RENTAL MANAGEMENT SYSTEM  (Week 11)
  * Programming Fundamentals - FAST BSCS
  *
  * New in this version:
