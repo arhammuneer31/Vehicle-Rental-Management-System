@@ -1,5 +1,5 @@
 1. Authentication & User Management
-- [ ] Admin Login
+- [✓] Admin Login
 - [ ] Customer Registration
 - [ ] Customer Login
 - [ ] Logout

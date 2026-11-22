@@ -1,1 +1,4 @@
-user_id,username,password,isAdmin
+user_id,username,email,password,isAdmin
+1,arham,arham@vrental.com,arham123,1
+2,rafay,rafay@vrental.com,rafay123,1
+3,hassaan,hassaan@vrental.com,hassaan123,1
