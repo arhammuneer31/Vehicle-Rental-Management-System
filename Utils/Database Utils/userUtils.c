@@ -3,60 +3,63 @@
 #include <string.h>
 #include <stdbool.h>
 
-#define USERS_FILE "../../Database/users.csv"
-#define TEMP_FILE "../../Database/temp.csv"
 #include "../../Utils/utilities.c"
+
+#define USER_DATA "../../Database/user.csv"
+#define TEMP_DATA "../../Database/temp.csv"
 
 typedef struct
 {
     int user_id;
     char username[50];
+    char email[100];
     char password[50];
     bool isAdmin;
 } User;
 
-
-// Add a row of user details to file
+// Add a row of user details to file. The id is taken from the file, not the caller.
 void addUser(User user)
 {
-    FILE *file = fopen(USERS_FILE, "a");
+    FILE *file = fopen(USER_DATA, "a");
 
     if (file == NULL)
     {
-        printf("Error opening users.csv\n");
+        printf("Error opening user.csv\n");
         return;
     }
 
-    if (recordExists(user.user_id, USERS_FILE))
+    user.user_id = nextId(USER_DATA);
+
+    if (!checkEmailStructure(user.email))
     {
-        printf("User with this ID already exists.\n");
+        printf("Invalid email address entered\n");
         return;
     }
 
-    fprintf(file, "%d,%s,%s,%d\n",
+    fprintf(file, "%d,%s,%s,%s,%d\n",
             user.user_id,
             user.username,
+            user.email,
             user.password,
             user.isAdmin);
 
     fclose(file);
 
-    printf("User added successfully.\n");
+    printf("User added successfully. ID: %d\n", user.user_id);
 }
-
 
 // Delete a user using user_id through temp file
 void deleteUser(int user_id)
 {
-    FILE *file = fopen(USERS_FILE, "r");
+    FILE *file = fopen(USER_DATA, "r");
 
     if (file == NULL)
     {
-        printf("Error opening users.csv\n");
+        printf("Error opening user.csv\n");
         return;
     }
 
-    FILE *temp = fopen(TEMP_FILE, "w");
+    FILE *temp = fopen(TEMP_DATA, "w");
 
     if (temp == NULL)
     {
@@ -91,13 +94,13 @@ void deleteUser(int user_id)
 
     if (found)
     {
-        remove(USERS_FILE);
-        rename(TEMP_FILE, USERS_FILE);
+        remove(USER_DATA);
+        rename(TEMP_DATA, USER_DATA);
         printf("User deleted successfully.\n");
     }
     else
     {
-        remove(TEMP_FILE);
+        remove(TEMP_DATA);
         printf("User not found.\n");
     }
 }
