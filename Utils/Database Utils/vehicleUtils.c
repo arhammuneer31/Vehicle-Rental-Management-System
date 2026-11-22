@@ -3,8 +3,7 @@
 #include <string.h>
 #include <stdbool.h>
 
-#define VEHICLES_FILE "../../Database/vehicle.csv"
-#define TEMP_FILE "../../Database/temp.csv"
+#include "../../paths.h"
 #include "../../Utils/utilities.c"
 
 typedef struct
@@ -24,7 +23,7 @@ typedef struct
 // Add a row of user details to file
 void addVehicle(Vehicle vehicle)
 {
-    FILE *file = fopen(VEHICLES_FILE, "a");
+    FILE *file = fopen(VEHICLE_UTILS, "a");
 
     if (file == NULL)
     {
@@ -32,7 +31,7 @@ void addVehicle(Vehicle vehicle)
         return;
     }
 
-    if (recordExists(vehicle.vehicle_id, VEHICLES_FILE))
+    if (recordExists(vehicle.vehicle_id, VEHICLE_UTILS))
     {
         printf("Vehicle with this ID already exists.\n");
         return;
@@ -58,7 +57,7 @@ void addVehicle(Vehicle vehicle)
 // Delete a user using user_id through temp file
 void deleteVehicle(int vehicle_id)
 {
-    FILE *file = fopen(VEHICLES_FILE, "r");
+    FILE *file = fopen(VEHICLE_UTILS, "r");
 
     if (file == NULL)
     {
@@ -66,7 +65,7 @@ void deleteVehicle(int vehicle_id)
         return;
     }
 
-    FILE *temp = fopen(TEMP_FILE, "w");
+    FILE *temp = fopen(TEMP_DATA, "w");
 
     if (temp == NULL)
     {
@@ -101,13 +100,13 @@ void deleteVehicle(int vehicle_id)
 
     if (found)
     {
-        remove(VEHICLES_FILE);
-        rename(TEMP_FILE, VEHICLES_FILE);
+        remove(VEHICLE_UTILS);
+        rename(TEMP_DATA, VEHICLE_UTILS);
         printf("Vehicle deleted successfully.\n");
     }
     else
     {
-        remove(TEMP_FILE);
+        remove(TEMP_DATA);
         printf("Vehicle not found.\n");
     }
 }

@@ -1,9 +1,9 @@
 1. Authentication & User Management
 - [✓] Admin Login
-- [ ] Customer Registration
-- [ ] Customer Login
-- [ ] Logout
-- [ ] View and Update Customer profile
+- [✓] Customer Registration
+- [✓] Customer Login
+- [✓] Logout
+- [✓] View and Update Customer profile
 
 
 2. Vehicle Management (Admin)

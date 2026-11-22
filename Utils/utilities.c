@@ -54,48 +54,15 @@ int nextId(const char *fileName)
     return last_id + 1;
 }
 
-// Checks the sturcture of the email entered
-bool checkEmailStructure(const char email[])
+// Takes string inputs
+void readLine(const char *prompt, char *buffer, int size)
 {
-    int atCount = 0;
-    int atPosition = -1;
-    int dotPosition = -1;
-    int length = strlen(email);
-
-    if (length == 0) 
+    printf("%s", prompt);
+    if (fgets(buffer, size, stdin) == NULL)
     {
-        return false;
+        buffer[0] = '\0';
+        return;
     }
 
-    for (int i = 0; i < length; i++)
-    {
-        if (isspace((unsigned char)email[i]))
-            return false;
-
-        if (email[i] == '@')
-        {
-            atCount++;
-            atPosition = i;
-        }
-    }
-
-    if (atCount != 1)
-        return false;
-
-    if (atPosition <= 0 || atPosition == length - 1)
-        return false;
-
-    for (int i = atPosition + 1; i < length; i++)
-    {
-        if (email[i] == '.')
-            dotPosition = i;
-    }
-
-    if (dotPosition == -1)
-        return false;
-
-    if (dotPosition == atPosition + 1 || dotPosition == length - 1)
-        return false;
-
-    return true;
+    buffer[strcspn(buffer, "\n")] = '\0';
 }
