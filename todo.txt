@@ -1,418 +1,83 @@
-# Vehicle Rental Management System — Development Checklist
+1. Authentication & User Management
+- [ ] Admin Login
+- [ ] Customer Registration
+- [ ] Customer Login
+- [ ] Logout
+- [ ] View and Update Customer profile
 
-## MODULE 1: Authentication & User Management
 
-### P0 — Critical
-- [ ] Create the main welcome screen.
-- [ ] Create the main menu.
-- [ ] Implement Admin Login.
-- [ ] Implement Customer Registration.
-- [ ] Generate a unique Customer ID.
-- [ ] Implement Customer Login.
-- [ ] Validate username/email and password.
-- [ ] Prevent login with incorrect credentials.
-- [ ] Implement Logout.
-- [ ] Redirect users to the appropriate dashboard according to their role.
+2. Vehicle Management (Admin)
+- [ ] Add a Vehicle
+- [ ] View All Vehicles
+- [ ] Update Vehicle Details
+- [ ] Delete a Vehicle
+- [ ] Search Vehicles
+- [ ] Manage Vehicle Availability (Available / Rented)
 
-### P1 — Important
-- [ ] View Customer Profile.
-- [ ] Update Customer Profile.
-- [ ] Validate customer phone number.
-- [ ] Validate email format.
-- [ ] Prevent duplicate email registrations.
-- [ ] Prevent duplicate customer accounts.
 
-### P2 — Additional
-- [ ] Change Password.
-- [ ] Display account creation date.
-- [ ] Allow Admin to view registered customers.
-- [ ] Allow Admin to search customers by ID or name.
-- [ ] Allow Admin to deactivate customer accounts.
+3. Vehicle Browsing & Booking (Customer)
+- [ ] View Available Vehicles
+- [ ] Search for a Vehicle
+- [ ] Select a Vehicle
+- [ ] Enter Rental Duration
+- [ ] Calculate Rental Cost
+- [ ] Confirm Booking
+- [ ] Generate Rental ID
+- [ ] Update Vehicle Status to Rented
 
----
 
-## MODULE 2: Vehicle Management (Admin Portal)
+4. Rental Management (Admin & Customer)
+Customer:
+- [ ] View Active Rentals
+- [ ] View Rental History
+- [ ] Cancel an Eligible Booking
+Admin:
+- [ ] View All Rentals
+- [ ] Search Rentals
+- [ ] View Rental Details
+- [ ] Track Rental Status (Booked / Active / Completed / Cancelled)
 
-### P0 — Critical
-- [ ] Create Add Vehicle functionality.
-- [ ] Generate a unique Vehicle ID.
-- [ ] Capture vehicle brand.
-- [ ] Capture vehicle model.
-- [ ] Capture vehicle manufacturing year.
-- [ ] Capture vehicle registration number.
-- [ ] Capture vehicle category.
-- [ ] Capture fuel type.
-- [ ] Capture transmission type.
-- [ ] Set daily rental price.
-- [ ] Set initial vehicle availability status.
-- [ ] Display all registered vehicles.
-- [ ] Search vehicles by Vehicle ID.
-- [ ] Update vehicle details.
-- [ ] Remove a vehicle from inventory.
-- [ ] Prevent duplicate registration numbers.
-- [ ] Prevent renting unavailable vehicles.
-- [ ] Prevent removing currently rented vehicles.
 
-### P1 — Important
-- [ ] Search vehicles by brand or model.
-- [ ] Filter vehicles by category.
-- [ ] Filter vehicles by availability.
-- [ ] Filter vehicles by rental price.
-- [ ] Update vehicle rental price.
-- [ ] Mark vehicle as Under Maintenance.
-- [ ] Make a vehicle Available after maintenance.
-- [ ] Display individual vehicle details.
+5. Vehicle Returns & Billing
+- [ ] Select an Active Rental for Return
+- [ ] Record Actual Return Date
+- [ ] Calculate Late Return Charges
+- [ ] Calculate Final Rental Amount
+- [ ] Generate Invoice
+- [ ] Update Rental Status to Completed
+- [ ] Update Vehicle Status to Available
 
-### P2 — Additional
-- [ ] Sort vehicles by rental price.
-- [ ] Sort vehicles alphabetically.
-- [ ] Sort vehicles by manufacturing year.
-- [ ] Display total vehicle count.
-- [ ] Display available vehicle count.
-- [ ] Display rented vehicle count.
-- [ ] Display vehicles under maintenance.
 
-### P3 — Optional
-- [ ] Maintain vehicle service history.
-- [ ] Record maintenance expenses.
-- [ ] Record vehicle mileage.
-- [ ] Record vehicle condition.
+6. Payments
+- [ ] View Invoice
+- [ ] Select Payment Method (Cash / Card / Bank Transfer)
+- [ ] Process Simulated Payment
+- [ ] Update Payment Status (Paid / Pending)
+- [ ] View Payment History
 
----
 
-## MODULE 3: Vehicle Browsing & Rental Booking (Customer Portal)
+7. Dashboards & Basic Reports
+Admin Dashboard:
+- [ ] Total Vehicles
+- [ ] Available Vehicles
+- [ ] Currently Rented Vehicles
+- [ ] Total Registered Customers
+- [ ] Total Rentals
+- [ ] Total Revenue
+Customer Dashboard:
+- [ ] Customer Profile
+- [ ] Active Rentals
+- [ ] Rental History
+- [ ] Payment History
 
-### P0 — Critical
-- [ ] Display all available vehicles.
-- [ ] Display vehicle details.
-- [ ] Allow customers to select a vehicle using Vehicle ID.
-- [ ] Allow customers to specify rental duration.
-- [ ] Capture rental start date.
-- [ ] Calculate rental end date.
-- [ ] Retrieve daily rental price.
-- [ ] Calculate base rental amount.
-- [ ] Display booking summary before confirmation.
-- [ ] Allow customer to confirm booking.
-- [ ] Generate a unique Rental ID.
-- [ ] Save rental information.
-- [ ] Update vehicle availability to Rented.
-- [ ] Prevent booking an already rented vehicle.
-- [ ] Associate each rental with the logged-in customer.
 
-### P1 — Important
-- [ ] Allow customers to search vehicles.
-- [ ] Filter vehicles by category.
-- [ ] Filter vehicles by price range.
-- [ ] Filter vehicles by transmission.
-- [ ] Filter vehicles by fuel type.
-- [ ] Allow customers to cancel eligible bookings.
-- [ ] Restore vehicle availability after valid cancellation.
-- [ ] Display booking confirmation.
-
-### P2 — Additional
-- [ ] Apply discounts for long rental durations.
-- [ ] Display recommended vehicles based on budget.
-- [ ] Allow customers to schedule future rentals.
-- [ ] Prevent overlapping bookings for the same vehicle.
-- [ ] Display estimated total rental cost.
-
-### P3 — Optional
-- [ ] Allow customers to add booking notes.
-- [ ] Allow customers to select vehicle preferences.
-
----
-
-## MODULE 4: Rental Management (Admin Portal)
-
-### P0 — Critical
-- [ ] Display all rental records.
-- [ ] Search rentals by Rental ID.
-- [ ] Search rentals by Customer ID.
-- [ ] Search rentals by Vehicle ID.
-- [ ] Display active rentals.
-- [ ] Display completed rentals.
-- [ ] Display cancelled rentals.
-- [ ] Display rental start and end dates.
-- [ ] Display rental amount.
-- [ ] Display rental status.
-- [ ] Allow Admin to view individual rental details.
-
-### P1 — Important
-- [ ] Filter rentals by status.
-- [ ] Filter rentals by date.
-- [ ] Filter rentals by customer.
-- [ ] Identify overdue rentals.
-- [ ] Display upcoming vehicle returns.
-- [ ] Allow Admin to cancel eligible bookings.
-- [ ] Display the rental history of a customer.
-
-### P2 — Additional
-- [ ] Sort rentals by date.
-- [ ] Sort rentals by rental amount.
-- [ ] Display the most recent rentals.
-- [ ] Display rental duration.
-
----
-
-## MODULE 5: Vehicle Return Management
-
-### P0 — Critical
-- [ ] Allow customers to view their active rentals.
-- [ ] Select a rental for return.
-- [ ] Verify that the rental belongs to the logged-in customer.
-- [ ] Verify that the rental is currently active.
-- [ ] Capture actual vehicle return date.
-- [ ] Calculate whether the vehicle is returned late.
-- [ ] Calculate late return charges.
-- [ ] Calculate final rental amount.
-- [ ] Generate final bill.
-- [ ] Update rental status to Completed.
-- [ ] Update vehicle availability to Available.
-- [ ] Save return information.
-
-### P1 — Important
-- [ ] Allow Admin to process vehicle returns.
-- [ ] Allow Admin to record damage charges.
-- [ ] Allow Admin to record additional charges.
-- [ ] Record vehicle condition upon return.
-- [ ] Display return details.
-- [ ] Prevent duplicate return processing.
-- [ ] Allow Admin to mark a returned vehicle as Under Maintenance if necessary.
-
-### P2 — Additional
-- [ ] Calculate fuel-related charges.
-- [ ] Record vehicle mileage at return.
-- [ ] Compare vehicle condition before and after rental.
-- [ ] Maintain a return history.
-
----
-
-## MODULE 6: Payment & Billing
-
-### P0 — Critical
-- [ ] Generate a unique Invoice ID.
-- [ ] Associate invoice with Rental ID.
-- [ ] Retrieve customer details.
-- [ ] Retrieve vehicle details.
-- [ ] Calculate base rental amount.
-- [ ] Include late return charges.
-- [ ] Include additional charges.
-- [ ] Calculate final payable amount.
-- [ ] Display invoice.
-- [ ] Implement simulated payment.
-- [ ] Allow Cash payment.
-- [ ] Allow Card payment (simulation).
-- [ ] Allow Bank Transfer payment (simulation).
-- [ ] Record payment date.
-- [ ] Generate a unique Payment ID.
-- [ ] Update payment status to Paid or Pending.
-
-### P1 — Important
-- [ ] Display payment history.
-- [ ] Allow Admin to view all payments.
-- [ ] Search payment by Payment ID.
-- [ ] Search payments by Customer ID.
-- [ ] Display unpaid invoices.
-- [ ] Prevent duplicate payments.
-- [ ] Display payment method and amount.
-
-### P2 — Additional
-- [ ] Implement partial payments.
-- [ ] Implement refunds for eligible cancellations.
-- [ ] Generate printable invoice formatting.
-- [ ] Display total paid and outstanding amounts.
-
----
-
-## MODULE 7: Customer Dashboard
-
-### P0 — Critical
-- [ ] Display customer welcome message.
-- [ ] Display customer profile information.
-- [ ] Display available vehicles.
-- [ ] Display current active rentals.
-- [ ] Display rental history.
-- [ ] Display pending payments.
-- [ ] Provide access to vehicle booking.
-- [ ] Provide access to vehicle returns.
-- [ ] Provide access to invoices.
-- [ ] Implement dashboard navigation.
-
-### P1 — Important
-- [ ] Display total rentals made.
-- [ ] Display total amount spent.
-- [ ] Display upcoming vehicle returns.
-- [ ] Display overdue rentals.
-- [ ] Display booking details.
-
-### P2 — Additional
-- [ ] Allow customers to submit reviews.
-- [ ] Display previous reviews.
-- [ ] Display customer-specific offers.
-
----
-
-## MODULE 8: Admin Dashboard & Analytics
-
-### P0 — Critical
-- [ ] Display total registered vehicles.
-- [ ] Display available vehicles.
-- [ ] Display rented vehicles.
-- [ ] Display total registered customers.
-- [ ] Display total rental transactions.
-- [ ] Display active rentals.
-- [ ] Display completed rentals.
-
-### P1 — Important
-- [ ] Calculate total revenue from completed payments.
-- [ ] Display pending payments.
-- [ ] Identify the most frequently rented vehicle.
-- [ ] Display most active customers.
-- [ ] Display overdue rentals.
-- [ ] Display recent transactions.
-
-### P2 — Additional
-- [ ] Calculate average rental duration.
-- [ ] Calculate average revenue per rental.
-- [ ] Display monthly revenue.
-- [ ] Display monthly rental statistics.
-- [ ] Display vehicle utilization statistics.
-- [ ] Display maintenance expenses.
-
----
-
-## MODULE 9: File Handling & Data Persistence
-
-### P0 — Critical
-- [ ] Create a separate file for customers.
-- [ ] Create a separate file for vehicles.
-- [ ] Create a separate file for rentals.
-- [ ] Create a separate file for payments.
-- [ ] Create a separate file for invoices.
-- [ ] Load existing records when the application starts.
-- [ ] Save records when new data is added.
-- [ ] Save records when existing data is updated.
-- [ ] Save records when data is deleted.
-- [ ] Preserve records after application termination.
-- [ ] Handle missing data files.
-- [ ] Handle empty data files.
-- [ ] Prevent invalid or corrupted records from crashing the application.
-
-### P1 — Important
-- [ ] Implement reusable file-reading functions.
-- [ ] Implement reusable file-writing functions.
-- [ ] Implement record-searching functions.
-- [ ] Implement record-update functionality.
-- [ ] Implement record-deletion functionality.
-- [ ] Avoid accidental overwriting of existing records.
-- [ ] Validate data before saving.
-
-### P2 — Additional
-- [ ] Create automatic backup files.
-- [ ] Implement data restoration.
-- [ ] Maintain transaction logs.
-- [ ] Add unique ID generation that persists across application restarts.
-
----
-
-## MODULE 10: Input Validation & Error Handling
-
-### P0 — Critical
-- [ ] Prevent invalid menu selections.
-- [ ] Prevent negative rental durations.
-- [ ] Prevent zero-day rentals.
-- [ ] Prevent negative rental prices.
-- [ ] Prevent invalid Vehicle IDs.
-- [ ] Prevent invalid Customer IDs.
-- [ ] Prevent invalid Rental IDs.
-- [ ] Prevent empty mandatory fields.
-- [ ] Handle incorrect numeric input.
-- [ ] Prevent invalid booking operations.
-- [ ] Prevent invalid return operations.
-- [ ] Prevent invalid payment operations.
-- [ ] Display meaningful error messages.
-
-### P1 — Important
-- [ ] Validate dates.
-- [ ] Validate date sequences.
-- [ ] Validate phone numbers.
-- [ ] Validate email addresses.
-- [ ] Validate manufacturing years.
-- [ ] Prevent duplicate records.
-- [ ] Confirm destructive actions before execution.
-
-### P2 — Additional
-- [ ] Implement retry mechanisms for invalid input.
-- [ ] Implement a consistent error-message format.
-- [ ] Handle unexpected file access errors.
-
----
-
-## MODULE 11: User Interface & Navigation
-
-### P0 — Critical
-- [ ] Create a clear main menu.
-- [ ] Create an Admin menu.
-- [ ] Create a Customer menu.
-- [ ] Create submenu navigation.
-- [ ] Provide a Back to Previous Menu option.
-- [ ] Provide a Logout option.
-- [ ] Display success messages.
-- [ ] Display failure messages.
-- [ ] Clear and format console output appropriately.
-
-### P1 — Important
-- [ ] Create formatted vehicle tables.
-- [ ] Create formatted customer tables.
-- [ ] Create formatted rental tables.
-- [ ] Create formatted invoices.
-- [ ] Highlight important information.
-- [ ] Keep menu options consistent.
-
-### P2 — Additional
-- [ ] Add loading or processing messages.
-- [ ] Add confirmation screens.
-- [ ] Add application branding.
-- [ ] Add a Help/About section.
-
----
-
-## MODULE 12: Testing & Finalization
-
-### P0 — Critical
-- [ ] Test Admin login.
-- [ ] Test Customer registration.
-- [ ] Test Customer login.
-- [ ] Test adding vehicles.
-- [ ] Test updating vehicles.
-- [ ] Test deleting vehicles.
-- [ ] Test vehicle booking.
-- [ ] Test vehicle availability updates.
-- [ ] Test vehicle return.
-- [ ] Test late fee calculations.
-- [ ] Test invoice generation.
-- [ ] Test payment processing.
-- [ ] Test file persistence after restarting.
-- [ ] Test invalid inputs.
-- [ ] Test duplicate record prevention.
-- [ ] Test complete customer rental workflow.
-- [ ] Test complete Admin workflow.
-
-### P1 — Important
-- [ ] Test multiple customers.
-- [ ] Test multiple vehicles.
-- [ ] Test multiple simultaneous rental records.
-- [ ] Test cancellation.
-- [ ] Test overdue rentals.
-- [ ] Test unpaid invoices.
-- [ ] Test boundary conditions.
-- [ ] Fix identified bugs.
-
-### P2 — Additional
-- [ ] Refactor repeated code into reusable functions.
-- [ ] Add comments to important functions.
-- [ ] Organize source files.
-- [ ] Remove unused variables and functions.
-- [ ] Prepare a project demonstration.
-- [ ] Prepare project documentation.
-- [ ] Prepare sample data for demonstration.
+8. CSV File Handling & Validation
+- [ ] Create and maintain CSV files for each data category.
+- [ ] Load existing records when the program starts.
+- [ ] Save new records.
+- [ ] Update existing records.
+- [ ] Delete records when required.
+- [ ] Validate user input.
+- [ ] Prevent duplicate IDs and registration numbers.
+- [ ] Prevent booking unavailable vehicles.
+- [ ] Ensure data remains saved after closing the program.
