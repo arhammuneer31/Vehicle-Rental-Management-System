@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdbool.h>
 
+#include "../../paths.h"
 #include "../../Utils/utilities.c"
 
 typedef struct
