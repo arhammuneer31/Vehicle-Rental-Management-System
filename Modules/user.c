@@ -3,7 +3,8 @@
 #include <string.h>
 #include <stdbool.h>
 
-#include "../paths.h"
+#include "../env.h"
+#include "../struct.h"
 #include "../Utils/Database Utils/userUtils.c"
 
 bool loginCustomer()

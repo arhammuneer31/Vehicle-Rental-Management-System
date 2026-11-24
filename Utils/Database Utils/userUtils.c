@@ -3,17 +3,9 @@
 #include <string.h>
 #include <stdbool.h>
 
-#include "../../paths.h"
+#include "../../env.h"
+#include "../../struct.h"
 #include "../../Utils/utilities.c"
-
-typedef struct
-{
-    int user_id;
-    char username[50];
-    char email[100];
-    char password[50];
-    bool isAdmin;
-} User;
 
 // Add a row of user details to file. The id is taken from the file, not the caller.
 void addUser(User user)

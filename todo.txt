@@ -7,12 +7,12 @@
 
 
 2. Vehicle Management (Admin)
-- [ ] Add a Vehicle
-- [ ] View All Vehicles
+- [✓] Add a Vehicle
 - [ ] Update Vehicle Details
-- [ ] Delete a Vehicle
-- [ ] Search Vehicles
-- [ ] Manage Vehicle Availability (Available / Rented)
+- [✓] Delete a Vehicle
+- [✓] Manage Vehicle Availability (Available / Rented)
+- [✓] Search Vehicles
+- [✓] View All Vehicles
 
 
 3. Vehicle Browsing & Booking (Customer)
@@ -69,15 +69,3 @@ Customer Dashboard:
 - [ ] Active Rentals
 - [ ] Rental History
 - [ ] Payment History
-
-
-8. CSV File Handling & Validation
-- [ ] Create and maintain CSV files for each data category.
-- [ ] Load existing records when the program starts.
-- [ ] Save new records.
-- [ ] Update existing records.
-- [ ] Delete records when required.
-- [ ] Validate user input.
-- [ ] Prevent duplicate IDs and registration numbers.
-- [ ] Prevent booking unavailable vehicles.
-- [ ] Ensure data remains saved after closing the program.
