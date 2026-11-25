@@ -7,6 +7,7 @@
 #include "../struct.h"
 #include "../Utils/Database Utils/userUtils.c"
 
+// Login for customer
 bool loginCustomer()
 {
     char email[100];
@@ -63,6 +64,7 @@ bool loginCustomer()
     return false;
 }
 
+// Login for admin
 bool loginAdmin()
 {
     char email[100];
@@ -119,6 +121,7 @@ bool loginAdmin()
     return false;
 }
 
+// Add a user in the database (admin will already be registered)
 void registerCustomer()
 {
     User user;
@@ -151,6 +154,7 @@ void registerCustomer()
     addUser(user);
 }
 
+// Update profile options (username)
 void editUsername()
 {
     int user_id = getCurrentUserId();
@@ -174,6 +178,7 @@ void editUsername()
     printf("Username updated successfully.\n");
 }
 
+// Update profile options (password)
 void editPassword()
 {
     int user_id = getCurrentUserId();
@@ -203,6 +208,7 @@ void editPassword()
     printf("Password updated successfully.\n");
 }
 
+// View user profile
 void viewProfile()
 {
     int current_id = getCurrentUserId();
@@ -259,6 +265,7 @@ void viewProfile()
     printf("============================================\n\n");
 }
 
+// Empties currentUser.csv file
 void logout()
 {
     FILE *file = fopen(CURRENT_USER, "w");

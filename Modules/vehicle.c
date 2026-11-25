@@ -5,10 +5,11 @@
 
 #include "../env.h"
 #include "../struct.h"
+#include "../Utils/Database Utils/userUtils.c"
 #include "../Utils/Database Utils/vehicleUtils.c"
 
 // Add a vehicle
-void addVehicles()
+void addVehiclesAdmin()
 {
     Vehicle vehicle;
     char input[100];
@@ -40,11 +41,11 @@ void addVehicles()
         return;
     }
 
-    addVehicle(vehicle);
+    addVehicles(vehicle);
 }
 
 // Delete a vehicle
-void deleteVehicles()
+void deleteVehiclesAdmin()
 {
     char input[20];
 
@@ -58,16 +59,18 @@ void deleteVehicles()
         return;
     }
 
-    deleteVehicle(vehicle_id);
+    deleteVehicles(vehicle_id);
 }
 
-// Vehicle filter criteria menu
-void filterVehicles()
+// Vehicle filter criteria menu for admin
+void filterVehiclesGeneric()
 {
     int choice;
     char input[20];
     char filterField[30];
     char filterValue[100];
+
+    bool isUserAdmin = isCurrentUserAdmin();
 
     Vehicle results[MAX_VEHICLES];
 
@@ -82,7 +85,11 @@ void filterVehicles()
         printf("6. Fuel Type\n");
         printf("7. Transmission\n");
         printf("8. Daily Rate\n");
-        printf("9. Availability\n");
+
+        if (isUserAdmin) {
+            printf("9. Availability\n");
+        }
+
         printf("0. Back\n");
 
         readLine("Select filter: ", input, sizeof(input));
@@ -149,7 +156,11 @@ void filterVehicles()
             continue;
         }
 
-        int count = filterVehicle(filterField, filterValue, results, MAX_VEHICLES);
+        int count = filterVehicles(filterField, filterValue, results, MAX_VEHICLES);
+
+        if (!isUserAdmin) {
+            count = extractAvailableVehicles(results, count);
+        }
 
         if (count == -1)
         {
@@ -168,13 +179,13 @@ void filterVehicles()
 }
 
 // View all the vehicles in the database
-void viewAllVehicles()
+void viewVehiclesGeneric()
 {
-    viewAllVehicle();
+    viewVehicles();
 }
 
 // Update any field of the vehicle
-void updateVehicles()
+void updateVehiclesAdmin()
 {
     char input[100];
     char field[30];
@@ -282,7 +293,7 @@ void updateVehicles()
         return;
     }
 
-    int result = updateVehicle(vehicle_id, field, newValue);
+    int result = updateVehicles(vehicle_id, field, newValue);
 
     if (result == 1)
         printf("Vehicle updated successfully.\n");
@@ -292,4 +303,30 @@ void updateVehicles()
 
     else
         printf("Unable to update vehicle.\n");
+}
+
+// View available vehicles
+void viewAvailableVehicles()
+{
+    char filterField[30];
+    char filterValue[100];
+
+    Vehicle results[MAX_VEHICLES];
+
+    strcpy(filterField, "isAvailable");
+    strcpy(filterValue, "available");
+
+    int count = filterVehicles(filterField, filterValue, results, MAX_VEHICLES);
+
+    if (count == -1)
+    {
+        printf("Unable to search vehicles.\n");
+    }
+
+    if (count == 0)
+    {
+        printf("No matching vehicles found.\n");
+    }
+
+    displayFilteredVehicles(results, count);
 }

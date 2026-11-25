@@ -8,7 +8,7 @@
 #include "../../Utils/utilities.c"
 
 // Add a row of user details to file
-void addVehicle(Vehicle vehicle)
+void addVehicles(Vehicle vehicle)
 {
     FILE *file = fopen(VEHICLE_DATA, "a");
 
@@ -39,7 +39,7 @@ void addVehicle(Vehicle vehicle)
 }
 
 // Delete a user using vehicle_id through temp file
-void deleteVehicle(int vehicle_id)
+void deleteVehicles(int vehicle_id)
 {
     FILE *file = fopen(VEHICLE_DATA, "r");
 
@@ -244,7 +244,7 @@ void updateVehicleAvailability(int vehicle_id)
 }
 
 // View all vehicles
-void viewAllVehicle()
+void viewVehicles()
 {
     FILE *file = fopen(VEHICLE_DATA, "r");
 
@@ -323,7 +323,7 @@ void viewAllVehicle()
 }
 
 // Vehicle filters
-int filterVehicle(const char filterField[], const char filterValue[], Vehicle results[], int maxResults)
+int filterVehicles(const char filterField[], const char filterValue[], Vehicle results[], int maxResults)
 {
     FILE *file = fopen(VEHICLE_DATA, "r");
 
@@ -439,7 +439,7 @@ void displayFilteredVehicles(Vehicle vehicles[], int count)
 }
 
 // Update vehicle attribute
-int updateVehicle(int vehicle_id, const char field[], const char newValue[])
+int updateVehicles(int vehicle_id, const char field[], const char newValue[])
 {
     FILE *file = fopen(VEHICLE_DATA, "r");
 
@@ -566,4 +566,21 @@ int updateVehicle(int vehicle_id, const char field[], const char newValue[])
     }
 
     return 1;
+}
+
+// Extracts only the available vehicles from the list
+int extractAvailableVehicles(Vehicle vehicles[], int count)
+{
+    int availableCount = 0;
+
+    for (int i = 0; i < count; i++)
+    {
+        if (vehicles[i].isAvailable)
+        {
+            vehicles[availableCount] = vehicles[i];
+            availableCount++;
+        }
+    }
+
+    return availableCount;
 }

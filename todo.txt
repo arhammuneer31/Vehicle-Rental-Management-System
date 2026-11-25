@@ -8,7 +8,7 @@
 
 2. Vehicle Management (Admin)
 - [✓] Add a Vehicle
-- [ ] Update Vehicle Details
+- [✓] Update Vehicle Details
 - [✓] Delete a Vehicle
 - [✓] Manage Vehicle Availability (Available / Rented)
 - [✓] Search Vehicles
@@ -16,8 +16,8 @@
 
 
 3. Vehicle Browsing & Booking (Customer)
-- [ ] View Available Vehicles
-- [ ] Search for a Vehicle
+- [✓] View Available Vehicles
+- [✓] Search for a Vehicle
 - [ ] Select a Vehicle
 - [ ] Enter Rental Duration
 - [ ] Calculate Rental Cost

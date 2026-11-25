@@ -331,3 +331,52 @@ int getCurrentUserId()
     fclose(file);
     return user_id;
 }
+
+// Check whether current user is admin or not
+bool isCurrentUserAdmin()
+{
+    int currentUserId = getCurrentUserId();
+
+    if (currentUserId == -1) {
+        return false;
+    }
+
+    FILE *file = fopen(USER_DATA, "r");
+    bool isUserAdmin, found;
+
+    if (file == NULL)
+    {
+        return false;
+    }
+
+    char line[512];
+    char username[50];
+    char email[100];
+    char password[50];
+    int isAdmin, user_id;
+
+    while (fgets(line, sizeof(line), file) != NULL)
+    {
+        if (sscanf(line, "%d,%49[^,],%99[^,],%49[^,],%d",
+                   &user_id, username, email, password, &isAdmin) != 5)
+            continue;
+
+        if (user_id == currentUserId)
+        {
+            found = true;
+            break;
+        }
+    }
+
+    fclose(file);
+
+    if (!found)
+    {
+        printf("User record not found.\n");
+        return;
+    }
+
+    isUserAdmin = isAdmin == 0 ? false : true;
+
+    return isUserAdmin;
+}
