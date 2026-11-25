@@ -5,7 +5,6 @@
 
 #include "../env.h"
 #include "../struct.h"
-#include "../Utils/Database Utils/userUtils.c"
 #include "../Utils/Database Utils/vehicleUtils.c"
 
 // Add a vehicle

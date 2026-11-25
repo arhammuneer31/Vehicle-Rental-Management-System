@@ -5,6 +5,8 @@
 #include <string.h>
 #include <ctype.h>
 
+#include "../env.h"
+
 // Check if a record with given id exists in the file
 bool recordExists(int id, char* fileName) {
     FILE* file = fopen(fileName, "r");
@@ -65,4 +67,72 @@ void readLine(const char *prompt, char *buffer, int size)
     }
 
     buffer[strcspn(buffer, "\n")] = '\0';
+}
+
+// Retrieve current user
+int getCurrentUserId()
+{
+    FILE *file = fopen(CURRENT_USER, "r");
+    int user_id;
+
+    if (file == NULL)
+        return -1;
+
+    if (fscanf(file, "%d", &user_id) != 1)
+    {
+        fclose(file);
+        return -1;
+    }
+
+    fclose(file);
+    return user_id;
+}
+
+// Check whether current user is admin or not
+bool isCurrentUserAdmin()
+{
+    int currentUserId = getCurrentUserId();
+
+    if (currentUserId == -1) {
+        return false;
+    }
+
+    FILE *file = fopen(USER_DATA, "r");
+    bool isUserAdmin, found;
+
+    if (file == NULL)
+    {
+        return false;
+    }
+
+    char line[512];
+    char username[50];
+    char email[100];
+    char password[50];
+    int isAdmin, user_id;
+
+    while (fgets(line, sizeof(line), file) != NULL)
+    {
+        if (sscanf(line, "%d,%49[^,],%99[^,],%49[^,],%d",
+                   &user_id, username, email, password, &isAdmin) != 5)
+            continue;
+
+        if (user_id == currentUserId)
+        {
+            found = true;
+            break;
+        }
+    }
+
+    fclose(file);
+
+    if (!found)
+    {
+        printf("User record not found.\n");
+        return false;
+    }
+
+    isUserAdmin = isAdmin == 0 ? false : true;
+
+    return isUserAdmin;
 }

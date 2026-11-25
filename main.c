@@ -3,8 +3,8 @@
 #include "env.h"
 #include "./Modules/vehicle.c"
 
-// int main()
-// {
+int main()
+{
 //     int choice;
 
 //     while (1)
@@ -52,5 +52,5 @@
 //         }
 //     }
 
-//     return 0;
-// }
+    return 0;
+}
