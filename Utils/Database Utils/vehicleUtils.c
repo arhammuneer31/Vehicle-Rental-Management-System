@@ -1,3 +1,6 @@
+#ifndef VEHICLE_UTILS_C
+#define VEHICLE_UTILS_C
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -584,3 +587,5 @@ int extractAvailableVehicles(Vehicle vehicles[], int count)
 
     return availableCount;
 }
+
+#endif

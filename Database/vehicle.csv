@@ -1,2 +1,4 @@
 vehicle_id,brand,model,year,registration_number,category,fuel_type,transmission,daily_rate,isAvailable
-2,bc,bc,2018,234,bc,ab,ab,55.55,1
+1,ab,ab,2018,123,ab,ab,ab,40.50,0
+2,bc,bc,2018,234,bc,bc,bc,50.50,0
+3,cd,cd,2018,345,cd,cd,cd,50.50,0

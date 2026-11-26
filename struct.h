@@ -1,6 +1,8 @@
 #ifndef STRUCT_H
 #define STRUCT_H
 
+#define MAX_RENTAL_VEHICLES 10
+
 typedef struct
 {
     int user_id;
@@ -23,5 +25,19 @@ typedef struct
     float daily_rate;
     bool isAvailable;
 } Vehicle;
+
+typedef struct
+{
+    int rental_id;
+    int user_id;
+    char starting_date[20];
+    int vehicleCount;
+    int vehicle_ids[MAX_RENTAL_VEHICLES];
+    int totalDays[MAX_RENTAL_VEHICLES];
+    char returnDates[MAX_RENTAL_VEHICLES][20];
+    float totalAmounts[MAX_RENTAL_VEHICLES];
+    float grandTotal;
+    bool isActive;
+} Rental;
 
 #endif

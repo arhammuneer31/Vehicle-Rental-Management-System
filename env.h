@@ -1,10 +1,11 @@
-#ifndef PATHS_H
-#define PATHS_H
+#ifndef ENV_H
+#define ENV_H
 
 #define TEMP_DATA "Database/temp.csv"
 #define CURRENT_USER "Database/currentUser.txt"
 #define USER_DATA "Database/user.csv"
 #define VEHICLE_DATA "Database/vehicle.csv"
+#define RENTAL_DATA "Database/rental.csv"
 
 #define USER_UTILS "Utils/Database Utils/userUtils.c"
 #define VEHICLE_UTILS "Utils/Database Utils/vehicleUtils.c"

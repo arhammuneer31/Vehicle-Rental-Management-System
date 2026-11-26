@@ -1,3 +1,6 @@
+#ifndef UTILITIES_C
+#define UTILITIES_C
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -98,7 +101,7 @@ bool isCurrentUserAdmin()
     }
 
     FILE *file = fopen(USER_DATA, "r");
-    bool isUserAdmin, found;
+    bool isUserAdmin, found = false;
 
     if (file == NULL)
     {
@@ -136,3 +139,5 @@ bool isCurrentUserAdmin()
 
     return isUserAdmin;
 }
+
+#endif

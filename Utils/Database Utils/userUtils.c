@@ -1,3 +1,6 @@
+#ifndef USER_UTILS_C
+#define USER_UTILS_C
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -312,3 +315,5 @@ bool saveCurrentUser(int user_id)
 
     return true;
 }
+
+#endif

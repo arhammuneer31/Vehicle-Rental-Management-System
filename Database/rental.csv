@@ -1,0 +1,2 @@
+rental_id,user_id,starting_date,vehicleCount,vehicle_ids,totalDays,returnDates,totalAmounts,grandTotal,isActive
+1,4,2026-11-26,2,2;1,7;4,2026-12-03;2026-11-30,353.50;162.00,515.50,1
