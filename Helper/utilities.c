@@ -155,7 +155,6 @@ FILE *openFile(const char *fileName)
     return file;
 }
 
-
 // Convert string to title case
 void formatString(char stringValue[])
 {
@@ -177,4 +176,19 @@ void formatString(char stringValue[])
             stringValue[i] = tolower(stringValue[i]);
         }
     }
+}
+
+// Check whether a string contains only letters and numbers
+bool isAlphanumeric(const char stringValue[])
+{
+    if (stringValue[0] == '\0')
+        return false;
+
+    for (int i = 0; stringValue[i] != '\0'; i++)
+    {
+        if (!isalnum(stringValue[i]))
+            return false;
+    }
+
+    return true;
 }

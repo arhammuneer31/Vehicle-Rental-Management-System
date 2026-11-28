@@ -258,12 +258,11 @@ void viewProfile()
     }
 
     printf("\n============================================\n");
-    printf("               MY PROFILE                  \n");
+    printf("               VRental Profile               \n");
     printf("============================================\n");
     printf("  User ID       : %-25d\n", userId);
     printf("  Username      : %-25s\n", username);
     printf("  Email         : %-25s\n", email);
-    printf("  Account Type  : %-25s\n", isAdmin ? "Administrator" : "Customer");
     printf("============================================\n\n");
 }
 
