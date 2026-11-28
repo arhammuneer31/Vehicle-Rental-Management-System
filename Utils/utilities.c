@@ -1,6 +1,3 @@
-#ifndef UTILITIES_C
-#define UTILITIES_C
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -139,5 +136,3 @@ bool isCurrentUserAdmin()
 
     return isUserAdmin;
 }
-
-#endif

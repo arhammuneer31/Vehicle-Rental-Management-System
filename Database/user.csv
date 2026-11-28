@@ -1,6 +1,7 @@
-user_id,username,email,password,isAdmin
+userId,username,email,password,isAdmin
 1,arham,arham@vrental.com,arham123,1
 2,rafay,rafay@vrental.com,rafay123,1
 3,hassaan,hassaan@vrental.com,hassaan123,1
-4,Aneeq Muneer,aneeq.muneer03@gmail.com,aneeq123,0
-5,bb,a@a.com,bb,0
+4,aneeq,aneeq@gmail.com,aneeq123,0
+5,ali,ali@gmail.com,ali123,0
+6,ahmed,ahmed@gmail.com,ahmed123,0

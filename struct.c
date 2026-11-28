@@ -1,11 +1,10 @@
-#ifndef STRUCT_H
-#define STRUCT_H
+#include<stdbool.h>
 
 #define MAX_RENTAL_VEHICLES 10
 
 typedef struct
 {
-    int user_id;
+    int userId;
     char username[50];
     char email[100];
     char password[50];
@@ -14,30 +13,31 @@ typedef struct
 
 typedef struct
 {
-    int vehicle_id;
+    int vehicleId;
     char brand[50];
     char model[50];
     int year;
-    char registration_number[30];
+    char registrationNumber[30];
     char category[30];
-    char fuel_type[20];
+    char fuelType[20];
     char transmission[20];
-    float daily_rate;
+    float dailyRate;
+    float dailyLateFee;
     bool isAvailable;
+    bool onMaintainance;
 } Vehicle;
 
 typedef struct
 {
-    int rental_id;
-    int user_id;
-    char starting_date[20];
+    int rentalId;
+    int userId;
+    char startingDate[20];
     int vehicleCount;
-    int vehicle_ids[MAX_RENTAL_VEHICLES];
+    int vehicleIds[MAX_RENTAL_VEHICLES];
     int totalDays[MAX_RENTAL_VEHICLES];
     char returnDates[MAX_RENTAL_VEHICLES][20];
     float totalAmounts[MAX_RENTAL_VEHICLES];
+    float lateFees[MAX_RENTAL_VEHICLES];
     float grandTotal;
-    bool isActive;
+    bool status;
 } Rental;
-
-#endif

@@ -1,4 +1,11 @@
-vehicle_id,brand,model,year,registration_number,category,fuel_type,transmission,daily_rate,isAvailable
-1,ab,ab,2018,123,ab,ab,ab,40.50,0
-2,bc,bc,2018,234,bc,bc,bc,50.50,0
-3,cd,cd,2018,345,cd,cd,cd,50.50,0
+vehicleId,brand,model,year,registrationNumber,category,fuelType,transmission,dailyRate,dailyLateFee,isAvailable,onMaintainance
+1,Toyota,Corolla,2022,ABC-123,Sedan,Petrol,Automatic,5000,1000,1,0
+2,Honda,Civic,2023,ABC-456,Sedan,Petrol,Automatic,6500,1200,1,0
+3,Suzuki,Alto,2021,ABC-789,Hatchback,Petrol,Manual,2500,500,1,0
+4,Toyota,Yaris,2022,DEF-123,Sedan,Petrol,Automatic,4000,800,1,0
+5,Kia,Sportage,2023,DEF-456,SUV,Petrol,Automatic,8500,1500,1,0
+6,Hyundai,Tucson,2022,DEF-789,SUV,Diesel,Automatic,8000,1400,0,0
+7,Suzuki,Cultus,2020,GHI-123,Hatchback,Petrol,Manual,3000,600,1,0
+8,Honda,BR-V,2021,GHI-456,SUV,Petrol,Automatic,6000,1000,0,1
+9,Toyota,Fortuner,2023,GHI-789,SUV,Diesel,Automatic,12000,2000,1,0
+10,Suzuki,Swift,2022,JKL-123,Hatchback,Petrol,Manual,3500,700,1,0

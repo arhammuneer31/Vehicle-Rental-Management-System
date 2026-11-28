@@ -18,12 +18,12 @@
 3. Vehicle Browsing & Booking (Customer)
 - [✓] View Available Vehicles
 - [✓] Search for a Vehicle
-- [ ] Select a Vehicle
-- [ ] Enter Rental Duration
-- [ ] Calculate Rental Cost
-- [ ] Confirm Booking
-- [ ] Generate Rental ID
-- [ ] Update Vehicle Status to Rented
+- [✓] Select a Vehicle
+- [✓] Enter Rental Duration
+- [✓] Calculate Rental Cost
+- [✓] Confirm Booking
+- [✓] Generate Rental ID
+- [✓] Update Vehicle Status to Rented
 
 
 4. Rental Management (Admin & Customer)
@@ -69,3 +69,8 @@ Customer Dashboard:
 - [ ] Active Rentals
 - [ ] Rental History
 - [ ] Payment History
+
+
+Add extra fees on late rental return
+Seperate return for each car in rental
+Field limitations for database

@@ -1,2 +1,7 @@
-rental_id,user_id,starting_date,vehicleCount,vehicle_ids,totalDays,returnDates,totalAmounts,grandTotal,isActive
-1,4,2026-11-26,2,2;1,7;4,2026-12-03;2026-11-30,353.50;162.00,515.50,1
+rentalId,userId,startingDate,vehicleCount,vehicleIds,totalDays,returnDates,totalAmounts,lateFees,grandTotal,status
+1,4,2026-11-26,2,1;3,5;3,2026-12-01;2026-11-29,25000;7500,0;0,32500,Active
+2,5,2026-11-27,1,5,4,2026-12-01,34000,0,34000,Booked
+3,6,2026-11-20,2,2;4,3;5,2026-11-23;2026-11-25,19500;20000,0;0,39500,Completed
+4,4,2026-11-22,1,9,2,2026-11-24,24000,2000,26000,Completed
+5,5,2026-11-28,1,7,3,2026-12-01,9000,0,9000,Booked
+6,6,2026-11-25,1,10,2,2026-11-27,7000,0,7000,Cancelled
