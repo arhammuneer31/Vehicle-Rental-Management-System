@@ -1,14 +1,11 @@
-#ifndef VEHICLE_UTILS_C
-#define VEHICLE_UTILS_C
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
 
-#include "../../env.h"
-#include "../../struct.h"
-#include "../../Utils/utilities.c"
+#include "../env.h"
+#include "../struct.c"
+#include "./utilities.c"
 
 // Add a row of user details to file
 void addVehicles(Vehicle vehicle)
@@ -587,5 +584,3 @@ int extractAvailableVehicles(Vehicle vehicles[], int count)
 
     return availableCount;
 }
-
-#endif

@@ -1,18 +1,17 @@
-#ifndef USER_UTILS_C
-#define USER_UTILS_C
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
 
 #include "../../env.h"
-#include "../../struct.h"
-#include "../../Utils/utilities.c"
+#include "../../struct.c"
+#include "./utilities.c"
 
-// Add a row of user details to file. The id is taken from the file, not the caller.
+// Add a user to the csv file
 void addUser(User user)
 {
+    user.userId = nextId(USER_DATA);
+
     FILE *file = fopen(USER_DATA, "a");
 
     if (file == NULL)
@@ -21,10 +20,8 @@ void addUser(User user)
         return;
     }
 
-    user.user_id = nextId(USER_DATA);
-
     fprintf(file, "%d,%s,%s,%s,%d\n",
-            user.user_id,
+            user.userId,
             user.username,
             user.email,
             user.password,
@@ -32,13 +29,14 @@ void addUser(User user)
 
     fclose(file);
 
-    printf("User added successfully. ID: %d\n", user.user_id);
+    printf("User added successfully. ID: %d\n", user.userId);
 }
 
-// Delete a user using user_id through temp file
-void deleteUser(int user_id)
+// Delete a user using userId through temp file
+void deleteUser(int userId)
 {
-    FILE *file = fopen(USER_DATA, "r");
+    // Open user.csv in read mode and skip first line (header)
+    FILE *file = openFile(USER_DATA);
 
     if (file == NULL)
     {
@@ -57,17 +55,16 @@ void deleteUser(int user_id)
 
     char line[512];
     int found = 0;
-    int current_id;
+    int currentId;
 
-    if (fgets(line, sizeof(line), file) != NULL)
-    {
-        fputs(line, temp);
-    }
+    // Write CSV header to temporary file
+    fputs("userId,username,email,password,isAdmin\n", temp);
 
-    // Copy all users except the one being deleted
+    // Copy all users to the temporary file
     while (fgets(line, sizeof(line), file) != NULL)
     {
-        if (sscanf(line, "%d,", &current_id) == 1 && current_id == user_id)
+        // Skip copying if the user to be deleted is found
+        if (sscanf(line, "%d,", &currentId) == 1 && currentId == userId)
         {
             found = 1;
             continue;
@@ -92,14 +89,13 @@ void deleteUser(int user_id)
     }
 }
 
-// Update username using user_id
-void updateUsername(int user_id, const char newUsername[])
+// Update username using userId
+void updateUsername(const char newUsername[])
 {
-    FILE *file = fopen(USER_DATA, "r");
+    FILE *file = openFile(USER_DATA);
 
     if (file == NULL)
     {
-        printf("Error opening user.csv\n");
         return;
     }
 
@@ -113,30 +109,25 @@ void updateUsername(int user_id, const char newUsername[])
     }
 
     char line[512];
-    int current_id;
+    int currentId, userId = getCurrentUserId();
     int found = 0;
     char username[50], email[100], password[50];
     int isAdmin;
 
-    if (fgets(line, sizeof(line), file) != NULL)
-    {
-        fputs(line, temp);
-    }
+    fputs("userId,username,email,password,isAdmin\n", temp);
 
     while (fgets(line, sizeof(line), file) != NULL)
     {
-        if (sscanf(line, "%d,%49[^,],%99[^,],%49[^,],%d",
-                   &current_id, username, email, password, &isAdmin) != 5)
+        if (sscanf(line, "%d,%49[^,],%99[^,],%49[^,],%d", &currentId, username, email, password, &isAdmin) != 5)
         {
             fputs(line, temp);
             continue;
         }
 
-        if (current_id == user_id)
+        if (currentId == userId)
         {
             found = 1;
-            fprintf(temp, "%d,%s,%s,%s,%d\n",
-                    current_id, newUsername, email, password, isAdmin);
+            fprintf(temp, "%d,%s,%s,%s,%d\n", currentId, newUsername, email, password, isAdmin);
         }
         else
         {
@@ -160,14 +151,13 @@ void updateUsername(int user_id, const char newUsername[])
     }
 }
 
-// Update password using user_id
-void updatePassword(int user_id, const char newPassword[])
+// Update password using userId
+void updatePassword(const char newPassword[])
 {
-    FILE *file = fopen(USER_DATA, "r");
+    FILE *file = openFile(USER_DATA);
 
     if (file == NULL)
     {
-        printf("Error opening user.csv\n");
         return;
     }
 
@@ -181,30 +171,25 @@ void updatePassword(int user_id, const char newPassword[])
     }
 
     char line[512];
-    int current_id;
+    int currentId, userId = getCurrentUserId();
     int found = 0;
     char username[50], email[100], password[50];
     int isAdmin;
 
-    if (fgets(line, sizeof(line), file) != NULL)
-    {
-        fputs(line, temp);
-    }
+    fputs("userId,username,email,password,isAdmin\n", temp);
 
     while (fgets(line, sizeof(line), file) != NULL)
     {
-        if (sscanf(line, "%d,%49[^,],%99[^,],%49[^,],%d",
-                   &current_id, username, email, password, &isAdmin) != 5)
+        if (sscanf(line, "%d,%49[^,],%99[^,],%49[^,],%d", &currentId, username, email, password, &isAdmin) != 5)
         {
             fputs(line, temp);
             continue;
         }
 
-        if (current_id == user_id)
+        if (currentId == userId)
         {
             found = 1;
-            fprintf(temp, "%d,%s,%s,%s,%d\n",
-                    current_id, username, email, newPassword, isAdmin);
+            fprintf(temp, "%d,%s,%s,%s,%d\n", currentId, username, email, newPassword, isAdmin);
         }
         else
         {
@@ -228,7 +213,7 @@ void updatePassword(int user_id, const char newPassword[])
     }
 }
 
-// Checks the sturcture of the email entered
+// Checks the structure of the email entered
 bool checkEmailStructure(const char email[])
 {
     int atCount = 0;
@@ -236,7 +221,7 @@ bool checkEmailStructure(const char email[])
     int dotPosition = -1;
     int length = strlen(email);
 
-    if (length == 0) 
+    if (length == 0)
     {
         return false;
     }
@@ -244,7 +229,9 @@ bool checkEmailStructure(const char email[])
     for (int i = 0; i < length; i++)
     {
         if (isspace((unsigned char)email[i]))
+        {
             return false;
+        }
 
         if (email[i] == '@')
         {
@@ -254,37 +241,48 @@ bool checkEmailStructure(const char email[])
     }
 
     if (atCount != 1)
+    {
         return false;
+    }
 
     if (atPosition <= 0 || atPosition == length - 1)
+    {
         return false;
+    }
 
     for (int i = atPosition + 1; i < length; i++)
     {
         if (email[i] == '.')
+        {
             dotPosition = i;
+        }
     }
 
     if (dotPosition == -1)
+    {
         return false;
+    }
 
     if (dotPosition == atPosition + 1 || dotPosition == length - 1)
+    {
         return false;
+    }
 
     return true;
 }
 
-// Checks if the current email is already registered with an exisiting user
+// Checks if the email is already registered with an existing user
 bool emailExists(const char *email)
 {
-    FILE *file = fopen(USER_DATA, "r");
-    char line[512];
-    char storedEmail[100];
+    FILE *file = openFile(USER_DATA);
 
     if (file == NULL)
     {
         return false;
     }
+
+    char line[512];
+    char storedEmail[100];
 
     while (fgets(line, sizeof(line), file) != NULL)
     {
@@ -299,8 +297,8 @@ bool emailExists(const char *email)
     return false;
 }
 
-// Save logged in user's details
-bool saveCurrentUser(int user_id)
+// Save logged in user's ID
+bool saveCurrentUser(int userId)
 {
     FILE *file = fopen(CURRENT_USER, "w");
 
@@ -310,10 +308,8 @@ bool saveCurrentUser(int user_id)
         return false;
     }
 
-    fprintf(file, "%d\n", user_id);
+    fprintf(file, "%d\n", userId);
     fclose(file);
 
     return true;
 }
-
-#endif

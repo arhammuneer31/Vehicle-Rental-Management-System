@@ -136,3 +136,45 @@ bool isCurrentUserAdmin()
 
     return isUserAdmin;
 }
+
+// Opens a file for reading and skips the header so that it can start reading from where the data is
+FILE *openFile(const char *fileName)
+{
+    FILE *file = fopen(fileName, "r");
+
+    if (file == NULL)
+    {
+        printf("Error opening file: %s\n", fileName);
+        return NULL;
+    }
+
+    // Skip CSV header
+    char line[512];
+    fgets(line, sizeof(line), file);
+
+    return file;
+}
+
+
+// Convert string to title case
+void formatString(char stringValue[])
+{
+    bool newWord = true;
+
+    for (int i = 0; stringValue[i] != '\0'; i++)
+    {
+        if (isspace(stringValue[i]))
+        {
+            newWord = true;
+        }
+        else if (newWord)
+        {
+            stringValue[i] = toupper(stringValue[i]);
+            newWord = false;
+        }
+        else
+        {
+            stringValue[i] = tolower(stringValue[i]);
+        }
+    }
+}

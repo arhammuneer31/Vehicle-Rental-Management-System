@@ -4,8 +4,8 @@
 #include <stdbool.h>
 
 #include "../env.h"
-#include "../struct.h"
-#include "../Utils/Database Utils/userUtils.c"
+#include "../struct.c"
+#include "../Helper/userHelper.c"
 
 // Login for customer
 bool loginCustomer()
@@ -16,24 +16,22 @@ bool loginCustomer()
     char username[50];
     char storedEmail[100];
     char storedPassword[50];
-    int user_id;
+    int userId;
     int isAdmin;
-    FILE *file;
 
     readLine("Email: ", email, sizeof(email));
     readLine("Password: ", password, sizeof(password));
 
-    file = fopen(USER_DATA, "r");
+    FILE *file = openFile(USER_DATA);
+
     if (file == NULL)
     {
-        printf("Error opening user.csv\n");
         return false;
     }
 
     while (fgets(line, sizeof(line), file) != NULL)
     {
-        if (sscanf(line, "%d,%49[^,],%99[^,],%49[^,],%d",
-                   &user_id, username, storedEmail, storedPassword, &isAdmin) != 5)
+        if (sscanf(line, "%d,%49[^,],%99[^,],%49[^,],%d", &userId, username, storedEmail, storedPassword, &isAdmin) != 5)
         {
             continue;
         }
@@ -50,12 +48,12 @@ bool loginCustomer()
 
         fclose(file);
 
-        if (!saveCurrentUser(user_id))
+        if (!saveCurrentUser(userId))
         {
             return false;
         }
 
-        printf("Login successful.\n");
+        printf("Customer Login successful.\n");
         return true;
     }
 
@@ -73,24 +71,22 @@ bool loginAdmin()
     char username[50];
     char storedEmail[100];
     char storedPassword[50];
-    int user_id;
+    int userId;
     int isAdmin;
-    FILE *file;
 
     readLine("Email: ", email, sizeof(email));
     readLine("Password: ", password, sizeof(password));
 
-    file = fopen(USER_DATA, "r");
+    FILE *file = openFile(USER_DATA);
+
     if (file == NULL)
     {
-        printf("Error opening user.csv\n");
         return false;
     }
 
     while (fgets(line, sizeof(line), file) != NULL)
     {
-        if (sscanf(line, "%d,%49[^,],%99[^,],%49[^,],%d",
-                   &user_id, username, storedEmail, storedPassword, &isAdmin) != 5)
+        if (sscanf(line, "%d,%49[^,],%99[^,],%49[^,],%d", &userId, username, storedEmail, storedPassword, &isAdmin) != 5)
         {
             continue;
         }
@@ -107,12 +103,12 @@ bool loginAdmin()
 
         fclose(file);
 
-        if (!saveCurrentUser(user_id))
+        if (!saveCurrentUser(userId))
         {
             return false;
         }
 
-        printf("Login successful.\n");
+        printf("Admin Login successful.\n");
         return true;
     }
 
@@ -121,12 +117,12 @@ bool loginAdmin()
     return false;
 }
 
-// Add a user in the database (admin will already be registered)
+// Register a new customer and automatically log them in
 void registerCustomer()
 {
     User user;
 
-    user.user_id = 0;
+    user.userId = 0;
     user.isAdmin = false;
 
     readLine("Username: ", user.username, sizeof(user.username));
@@ -141,7 +137,7 @@ void registerCustomer()
 
     if (!checkEmailStructure(user.email))
     {
-        printf("Invalid email.\n");
+        printf("Invalid email. Please retry.\n");
         return;
     }
 
@@ -151,19 +147,27 @@ void registerCustomer()
         return;
     }
 
+    if (strlen(user.password) < 8)
+    {
+        printf("Password must be at least 8 characters long.\n");
+        return;
+    }
+
+    formatUsername(user.username);
+    user.userId = nextId(USER_DATA);
+
     addUser(user);
+
+    if (saveCurrentUser(user.userId))
+    {
+        printf("Registration successful. You are now logged in.\n");
+    }
 }
 
 // Update profile options (username)
 void editUsername()
 {
-    int user_id = getCurrentUserId();
     char newUsername[50];
-
-    if (user_id == -1)
-    {
-        return;
-    }
 
     readLine("New Username: ", newUsername, sizeof(newUsername));
 
@@ -173,7 +177,7 @@ void editUsername()
         return;
     }
 
-    updateUsername(user_id, newUsername);
+    updateUsername(newUsername);
 
     printf("Username updated successfully.\n");
 }
@@ -181,19 +185,21 @@ void editUsername()
 // Update profile options (password)
 void editPassword()
 {
-    int user_id = getCurrentUserId();
     char newPassword[50];
     char confirmPassword[50];
-
-    if (user_id == -1)
-        return;
 
     readLine("New Password: ", newPassword, sizeof(newPassword));
     readLine("Retype New Password: ", confirmPassword, sizeof(confirmPassword));
 
-    if (newPassword[0] == '\0')
+    if (newPassword[0] == '\0' || confirmPassword[0] == '\0')
     {
         printf("Password cannot be empty.\n");
+        return;
+    }
+
+    if (strlen(newPassword) < 8 || strlen(confirmPassword) < 8)
+    {
+        printf("Password must be at least 8 characters long.\n");
         return;
     }
 
@@ -203,7 +209,7 @@ void editPassword()
         return;
     }
 
-    updatePassword(user_id, newPassword);
+    updatePassword(newPassword);
 
     printf("Password updated successfully.\n");
 }
@@ -211,36 +217,32 @@ void editPassword()
 // View user profile
 void viewProfile()
 {
-    int current_id = getCurrentUserId();
+    int currentId = getCurrentUserId();
 
-    if (current_id == -1)
+    if (currentId == -1)
     {
         printf("No user is currently logged in.\n");
         return;
     }
 
-    FILE *file = fopen(USER_DATA, "r");
+    FILE *file = openFile(USER_DATA);
 
     if (file == NULL)
-    {
-        printf("Error opening user.csv\n");
         return;
-    }
 
     char line[512];
     char username[50];
     char email[100];
     char password[50];
-    int user_id, isAdmin;
+    int userId, isAdmin;
     bool found = false;
 
     while (fgets(line, sizeof(line), file) != NULL)
     {
-        if (sscanf(line, "%d,%49[^,],%99[^,],%49[^,],%d",
-                   &user_id, username, email, password, &isAdmin) != 5)
+        if (sscanf(line, "%d,%49[^,],%99[^,],%49[^,],%d", &userId, username, email, password, &isAdmin) != 5)
             continue;
 
-        if (user_id == current_id)
+        if (userId == currentId)
         {
             found = true;
             break;
@@ -258,14 +260,14 @@ void viewProfile()
     printf("\n============================================\n");
     printf("               MY PROFILE                  \n");
     printf("============================================\n");
-    printf("  User ID       : %-25d\n", user_id);
+    printf("  User ID       : %-25d\n", userId);
     printf("  Username      : %-25s\n", username);
     printf("  Email         : %-25s\n", email);
     printf("  Account Type  : %-25s\n", isAdmin ? "Administrator" : "Customer");
     printf("============================================\n\n");
 }
 
-// Empties currentUser.csv file
+// Logout current user
 void logout()
 {
     FILE *file = fopen(CURRENT_USER, "w");
